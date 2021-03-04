@@ -1,4 +1,5 @@
 {
     "prefix":"!",
-    "startMessage": false
+    "startMessage": false,
+    "handlerPath": "./handler"
 }
