@@ -16,7 +16,7 @@ You'll get all the details needed to modify the config and all its settings.
 ## By editing the server file
 Go to the Bot folder, then follow the tree structure as follows:
 ```
-servers / <your server ID> / config.json
+handler / configs / <your server ID> / config.json
 ```
 Most of the settings are booleans, but some need channel-names (or channel-ids): be aware !
 ## Config Variables
