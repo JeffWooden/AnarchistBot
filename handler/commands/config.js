@@ -8,6 +8,7 @@ module.exports = {
         
     */
     name: 'config',
+    description: 'Obtenir toutes les informations de la configuration serveur.',
     syntax: 'config [read|modify] <setting> [value]',
     execute(msg, args, config){
         const embed = new Discord.MessageEmbed()
