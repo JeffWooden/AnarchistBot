@@ -25,6 +25,7 @@ for(file of Files){
 }
 
 bot.on("message", msg => {
+    error = require("./handler/utils/error.js")
     config = bot.utils.get("config").get_config(msg.guild.id);
     prefix = config["prefix"]
     if(msg.author.bot || !msg.content.startsWith(prefix)) return;
