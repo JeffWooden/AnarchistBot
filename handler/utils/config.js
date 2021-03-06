@@ -1,6 +1,6 @@
 const fs = require("fs")
 module.exports = {
-    name: "get_config",
+    name: "config",
     get_config(id){
         file = "./handler/configs/" + id + ".json"
         if(!fs.existsSync(file)){
@@ -8,5 +8,4 @@ module.exports = {
         }
         return JSON.parse(fs.readFileSync(file, 'utf-8'))
     }
-    
 }
