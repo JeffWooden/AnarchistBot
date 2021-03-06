@@ -1,23 +1,22 @@
 const fs = require("fs")
 const Discord = require("discord.js")
 const bot = new Discord.Client()
-const get_config = require("./handler/utils/config.js")
+const get_config = require("././handler/utils/config.js")
 bot.commands = new Discord.Collection()
-const {prefix, startMessageOnLaunch, handlerPath} = require("./config.json")
+const {prefix} = require("./config.json")
 require("dotenv").config();
 
 bot.once("ready", () => {
     console.log(`${bot.user.tag} connecté.`)
-    if(startMessage == true) bot.channels.cache.find(ch => ch.name === "général").send("Hello World ! I'm UP !")
 })
 
 for(directories=["commands","events"],i=0;i<directories.length;i++){
-    if(!fs.existsSync(`${handlerPath}/${directories[i]}`)) fs.mkdirSync(handlerPath + "/" + directories[i])
+    if(!fs.existsSync(`./handler/${directories[i]}`)) fs.mkdirSync("./handler/" + directories[i])
 }
 
-cmdFiles = fs.readdirSync(handlerPath + "/commands").filter(file => file.endsWith(".js"))
+cmdFiles = fs.readdirSync("./handler/commands").filter(file => file.endsWith(".js"))
 for(file of cmdFiles){
-    cmd = require(handlerPath + "/commands/" + file)
+    cmd = require("./handler/commands/" + file)
     bot.commands.set(cmd.name, cmd)
 }
 
