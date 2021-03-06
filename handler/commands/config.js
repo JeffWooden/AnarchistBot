@@ -19,19 +19,26 @@ module.exports = {
             }
             return msg.channel.send(embed)
         }
-        setting = args[0]
-
-        if(config[setting] == undefined){
-            require("../utils/error").execute(msg, `Paramètre "${setting}" inconnu.\n(faites \`${config.prefix}config\` pour obtenir la liste des paramètres)`)
-            return msg.delete({timeout: 3000})
-        }
-
-        if(!args[1] || args[1] == "read"){
-            return msg.channel.send(`**${setting}:** \`\`\`\n${config[setting]}\`\`\``)
-        } else if(args[1] == "modify"){
-            return msg.channel.send(`Modification du paramètre '${setting}'`)
+        setting = !args[1] ? args[0] : args[1]
+        mode = !args[1] ? null : args[0];
+        // if(config[setting] == undefined && !args[1]){
+        //     require("../utils/error").execute(msg, `Paramètre "${setting}" inconnu.\n(faites \`${config.prefix}config\` pour obtenir la liste des paramètres)`)
+        //     return msg.delete({timeout: 3000})
+        // }
+        error = require("../utils/error.js")
+        if(mode == null || mode == "read"){
+            if(!config[setting]){
+                error.execute(msg, `Paramètre "${setting}" inconnu.\n(faites \`${config.prefix}config\` pour obtenir la liste des paramètres)`)
+            } else {
+                embed.addField(setting, config[setting],true)
+                msg.channel.send(embed)
+            }
+        } 
+        if(mode == "modify"){
+            error.execute(msg, `Non-disponible.`)
         } else {
-            return msg.channel.send(`Sous paramètre '${args[1]}' inconnu (Essayez 'read' ou 'modify')`)
+            error.execute(msg, `Mode "${inconnu}", faites \`${config.prefix}help config\` pour plus d'informations`)
         }
+        return msg.delete({timeout: 3000})
     }
 }
