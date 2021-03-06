@@ -20,15 +20,7 @@ module.exports = {
         setting = args[0]
 
         if(config[setting] == undefined){
-            embed.setDescription(`Paramètre "${setting}" inconnu.\n\
-            (faites \`${config.prefix}config\` pour obtenir la liste des paramètres)`)
-            embed.setColor("#fc5c65")
-            author = msg.author
-            msg.channel.send(embed).then(msg => {
-                msg.react("➕");
-                msg.awaitReactions((reaction, user) => user.id == author.id && reaction.emoji.name == "➕", {max: 1, time: 10000})
-                .then(collected => {msg.reactions.removeAll()}).catch(() => {msg.delete()});
-            });
+            require("../utils/error").execute(msg, `Paramètre "${setting}" inconnu.\n(faites \`${config.prefix}config\` pour obtenir la liste des paramètres)`)
             return msg.delete({timeout: 3000})
         }
 
