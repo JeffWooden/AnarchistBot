@@ -1,8 +1,9 @@
 const fs = require("fs")
 const Discord = require("discord.js")
 const bot = new Discord.Client()
-const commands = new Discord.Collection()
-const {prefix, startMessage, handlerPath} = require("./config.json")
+const get_config = require("./handler/utils/config.js")
+bot.commands = new Discord.Collection()
+const {prefix, startMessageOnLaunch, handlerPath} = require("./config.json")
 require("dotenv").config();
 
 bot.once("ready", () => {
