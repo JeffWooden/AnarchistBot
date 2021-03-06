@@ -9,7 +9,7 @@ module.exports = {
         msg.channel.send(embed).then(msg => {
             msg.react("➕");
             msg.awaitReactions((reaction, user) => user.id == author.id && reaction.emoji.name == "➕", {max: 1, time: 10000})
-            .then(collected => {msg.reactions.removeAll()}).catch(() => {msg.delete()});
+            .then(collected => {if(collected.first().emoji.name == "➕"){msg.reactions.removeAll()}}).catch(() => {msg.delete()});
         });
     }
 }
