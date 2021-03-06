@@ -1,5 +1,6 @@
 start.bat
 package-lock.json
+/handler/configs/*
 
 # Logs
 logs
