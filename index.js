@@ -15,10 +15,10 @@ for(directories=["commands","events"],i=0;i<directories.length;i++){
     if(!fs.existsSync(`${handlerPath}/${directories[i]}`)) fs.mkdirSync(handlerPath + "/" + directories[i])
 }
 
-const cmdFiles = fs.readdirSync(handlerPath + "/commands").filter(file => file.endsWith(".js"))
-for(const file in cmdFiles){
-    const cmd = require(handlerPath + "/commands" + file)
-    client.commands.set(cmd.name, cmd)
+cmdFiles = fs.readdirSync(handlerPath + "/commands").filter(file => file.endsWith(".js"))
+for(file of cmdFiles){
+    cmd = require(handlerPath + "/commands/" + file)
+    bot.commands.set(cmd.name, cmd)
 }
 
 bot.on("message", msg => {
