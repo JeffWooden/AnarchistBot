@@ -21,10 +21,6 @@ module.exports = {
         }
         setting = !args[1] ? args[0] : args[1]
         mode = !args[1] ? null : args[0];
-        // if(config[setting] == undefined && !args[1]){
-        //     require("../utils/error").execute(msg, `Paramètre "${setting}" inconnu.\n(faites \`${config.prefix}config\` pour obtenir la liste des paramètres)`)
-        //     return msg.delete({timeout: 3000})
-        // }
         error = require("../utils/error.js")
         if(mode == null || mode == "read"){
             if(!config[setting]){
