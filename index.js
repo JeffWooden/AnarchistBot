@@ -35,7 +35,8 @@ bot.on("message", msg => {
     try {
         bot.commands.get(cmd).execute(msg, args, config)
     } catch(e){
-        return console.log(`Commande '${cmd}' inconnue`);
+        error.execute(msg, `La commande "${cmd}" n'existe pas !\nFaites \`${prefix}help\` pour obtenir une liste de toutes les commandes.`)
+        return msg.delete({timeout: 5000})
     }
 })
 
