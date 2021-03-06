@@ -32,6 +32,27 @@ bot.on("message", msg => {
     const args = msg.content.slice(prefix.length).trim().split(/ +/)
     const cmd = args.shift().toLowerCase();
 
+    if(cmd == "help"){
+        embed = new Discord.MessageEmbed();
+        if(!args[0]){
+            embed.setTitle("Aide - Toutes les commandes")
+            for(cmds=fs.readdirSync("./handler/commands/").filter(file => file.endsWith(".js")),i=0;i<cmds.length;i++){
+                embed.addField(prefix + cmds[i].slice(0,-3), bot.commands.get(cmds[i].slice(0,-3)).description, true)
+            }
+            msg.channel.send(embed)
+        } else {
+            cmdHelp = bot.commands.get(args[0])
+            if(cmdHelp == undefined){
+                error.execute(msg, `La commande "${args[0]}" n'existe pas !\nFaites \`${prefix}help\` pour obtenir une liste de toutes les commandes.`)
+            } else {
+                embed.setTitle(`Aide - ${args[0]}`)
+                .setDescription(`Syntaxe de la commande:\n\`\`\`${prefix}${cmdHelp.syntax}\`\`\``)
+                .setColor("");
+                msg.channel.send(embed)
+            }
+        }
+        return msg.delete({timeout: 5000})
+    }
     try {
         bot.commands.get(cmd).execute(msg, args, config)
     } catch(e){
