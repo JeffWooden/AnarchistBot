@@ -1,9 +1,8 @@
 const fs = require("fs")
 const Discord = require("discord.js")
 const bot = new Discord.Client()
-const get_config = require("././handler/utils/config.js")
+bot.utils = new Discord.Collection()
 bot.commands = new Discord.Collection()
-const {prefix} = require("./config.json")
 require("dotenv").config();
 
 bot.once("ready", () => {
@@ -14,19 +13,26 @@ for(directories=["commands","events"],i=0;i<directories.length;i++){
     if(!fs.existsSync(`./handler/${directories[i]}`)) fs.mkdirSync("./handler/" + directories[i])
 }
 
-cmdFiles = fs.readdirSync("./handler/commands").filter(file => file.endsWith(".js"))
-for(file of cmdFiles){
-    cmd = require("./handler/commands/" + file)
-    bot.commands.set(cmd.name, cmd)
+Files = fs.readdirSync("./handler/commands").filter(file => file.endsWith(".js"))
+for(file of Files){
+    exe = require("./handler/commands/" + file)
+    bot.commands.set(exe.name, exe)
+}
+Files = fs.readdirSync("./handler/utils").filter(file => file.endsWith(".js"))
+for(file of Files){
+    exe = require("./handler/utils/" + file)
+    bot.utils.set(exe.name, exe)
 }
 
 bot.on("message", msg => {
+    config = bot.utils.get("config").get_config(msg.guild.id);
+    prefix = config["prefix"]
     if(msg.author.bot || !msg.content.startsWith(prefix)) return;
-    const args = msg.content.slice(prefix.lenth).trim().split(/ +/)
+    const args = msg.content.slice(prefix.length).trim().split(/ +/)
     const cmd = args.shift().toLowerCase();
 
     try {
-        bot.commands.get(cmd).execute(msg, args)
+        bot.commands.get(cmd).execute(msg, args, config)
     } catch(e){
         return console.log(`Commande '${cmd}' inconnue`);
     }
