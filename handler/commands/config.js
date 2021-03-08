@@ -11,11 +11,20 @@ module.exports = {
     description: 'Obtenir toutes les informations de la configuration serveur.',
     syntax: 'config [read|modify] <setting> [value]',
     execute(msg, args, config){
+        function readObject(object,element,embed,root){
+            for(i in object[element]){
+                if(typeof object[element][i] == "object"){
+                    readObject(object[element], i, embed, `${root}/${i}`)
+                } else {
+                    embed.addField(`${root}/${i}`,`${object[element][i]}`,true)
+                }
+            }
+        }
         const embed = new Discord.MessageEmbed();
         if(!args[0]){
             embed.setTitle("Liste des paramètres de la config");
             for(i in config){
-                embed.addField(i,config[i],true)
+                (typeof config[i] == "object" ? readObject(config, i, embed, i) : embed.addField(`${i}`,`${config[i]}`,true))
             }
             return msg.channel.send(embed)
         }
