@@ -1,3 +1,7 @@
 {
-    "prefix":"!"
-}
+    "prefix": "!",
+    "vote": {
+      "major": 10000,
+      "minor": 5000
+    }
+  }
