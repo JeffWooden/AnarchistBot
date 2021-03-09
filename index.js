@@ -53,11 +53,11 @@ bot.on("message", msg => {
         }
         return msg.delete({timeout: 5000})
     }
+    if(!bot.commands.get(cmd)) return error.execute(msg, `La commande "${cmd}" n'existe pas !\nFaites \`${prefix}help\` pour obtenir une liste de toutes les commandes.`), msg.delete({timeout: 5000})
     try {
         bot.commands.get(cmd).execute(msg, args, config)
     } catch(e){
-        error.execute(msg, `La commande "${cmd}" n'existe pas !\nFaites \`${prefix}help\` pour obtenir une liste de toutes les commandes.`)
-        return msg.delete({timeout: 5000})
+        throw e;
     }
 })
 
