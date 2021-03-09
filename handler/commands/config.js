@@ -53,7 +53,8 @@ module.exports = {
                 else return setKeyPath(object[path.shift()], path, value)
             }
             oldValue = getKeyPath(config, setting.split("."))
-            if(!oldValue) return unknownParamater(), msg.delete({timeout: 3000});
+            try{value=typeof oldValue!="string"?JSON.parse(value):value}catch(e){}
+            if(!oldValue) return unknownParamater();
             if(typeof oldValue == "object"){
                 embed.setDescription(`Quel paramètre voudriez-vous accéder dans "${setting.split(".").join("/")}" ?`)
                 .setColor("#3498db");
@@ -73,6 +74,5 @@ module.exports = {
         } else {
             error.execute(msg, `Mode "${inconnu}", faites \`${config.prefix}help config\` pour plus d'informations`)
         }
-        return msg.delete({timeout: 3000})
     }
 }
