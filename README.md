@@ -22,10 +22,12 @@ Most of the settings are booleans, but some need channel-names (or channel-ids):
 ## Config Variables
 ```
 📄 config.json
-└ startMessage
-	└ activated: Bool (default: true)
-	└ channel: Int || String
-└ prefix: String (default: "!")
+└ prefix {string} - Prefix utilisé pour les commandes
+└ vote
+	└ major: {int} - Temps de vote alloué pour un référendum majeur
+	└ minor: {int} - Temps de vote alloué pour un référendum mineur
+	└ channel: {int|string} - Salon dédié aux votes (si non renseigné, le vote s'effectuera dans le salon de la commande)
+	└ delegate_ony: {boolean} - Si activé, seul les délégués pourront ouvrir des votes
 ```
 
 Important: this READ-ME is outdated. Wait before the whole system is explained before considering inviting the bot in your server.
