@@ -60,9 +60,10 @@ module.exports = {
                 for(i in oldValue){
                     (typeof oldValue[i] == "object" ? readObject(oldValue, i, embed, i) : embed.addField(`${i}`,`${oldValue[i]}`,true))
                 }
-                return msg.channel.send(embed), msg.delete({timeout: 5000})
+                return msg.channel.send(embed);
             }
-            if(oldValue == value) return error.execute(msg,`Rien n'a changé, "${setting}" toujours égal à \`${oldValue}\``), msg.delete({timeout: 5000})
+            if(typeof oldValue != typeof value) return error.execute(msg, `"${typeof oldValue}" attendu au lieu de "${typeof value}"`)
+            if(oldValue == value) return error.execute(msg,`Rien n'a changé, "${setting}" toujours égal à \`${oldValue}\``);
             setKeyPath(config, setting.split("."), value)
             fs.writeFileSync("./handler/configs/" + msg.guild.id + ".json", JSON.stringify(config, null, 2), "utf-8")
             embed.setColor("#2ecc71")

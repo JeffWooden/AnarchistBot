@@ -3,5 +3,9 @@
     "vote": {
       "major": 10000,
       "minor": 5000
+    },
+    "timeout": {
+      "errors": 10000,
+      "command_execution": 2000
     }
   }
