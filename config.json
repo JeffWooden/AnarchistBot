@@ -2,7 +2,9 @@
     "prefix": "!",
     "vote": {
       "major": 10,
-      "minor": 5
+      "minor": 5,
+      "channel": "vote",
+      "delegate_only": true
     },
     "timeout": {
       "errors": 10,
