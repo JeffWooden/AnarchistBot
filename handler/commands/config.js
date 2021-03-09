@@ -1,7 +1,7 @@
 const fs = require("fs")
 const Discord = require("discord.js")
 module.exports = {
-    /*
+    /* JS Stick Letters
          __   __        ___    __  
         /  ` /  \ |\ | |__  | / _` 
         \__, \__/ | \| |    | \__> 
