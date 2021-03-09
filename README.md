@@ -28,6 +28,9 @@ Most of the settings are booleans, but some need channel-names (or channel-ids):
 	└ minor: {int} - Temps de vote alloué pour un référendum mineur
 	└ channel: {int|string} - Salon dédié aux votes (si non renseigné, le vote s'effectuera dans le salon de la commande)
 	└ delegate_ony: {boolean} - Si activé, seul les délégués pourront ouvrir des votes
+└ timeout - Temps de disparition des messages du bot
+	└ errors: {int}
+	└ command_execution: {int}
 ```
 
 Important: this READ-ME is outdated. Wait before the whole system is explained before considering inviting the bot in your server.
