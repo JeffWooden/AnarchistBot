@@ -26,7 +26,7 @@ Most of the settings are booleans, but some need channel-names (or channel-ids):
 └ vote
 	└ major: {int} - Temps (en s) de vote alloué pour un référendum majeur
 	└ minor: {int} - Temps (en s) de vote alloué pour un référendum mineur
-	└ channel: {int|string} - Salon dédié aux votes (si non renseigné, le vote s'effectuera dans le salon de la commande)
+	└ channel: {string} - Salon dédié aux votes (si non renseigné, le vote s'effectuera dans le salon de la commande)
 	└ delegate_ony: {boolean} - Si activé, seul les délégués pourront ouvrir des votes
 └ timeout - Temps (en s) de disparition des messages du bot
 	└ errors: {int}
