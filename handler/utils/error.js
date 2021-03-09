@@ -10,7 +10,7 @@ module.exports = {
         author = msg.author
         msg.channel.send(embed).then(msg => {
             msg.react("➕");
-            msg.awaitReactions((reaction, user) => user.id == author.id && reaction.emoji.name == "➕", {max: 1, time: config["timeout"]["errors"]})
+            msg.awaitReactions((reaction, user) => user.id == author.id && reaction.emoji.name == "➕", {max: 1, time: config["timeout"]["errors"]*1000})
             .then(collected => {if(collected.first().emoji.name == "➕"){msg.reactions.removeAll()}}).catch(() => {msg.delete()});
         });
     }

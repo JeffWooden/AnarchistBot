@@ -51,12 +51,12 @@ bot.on("message", msg => {
                 msg.channel.send(embed)
             }
         }
-        return msg.delete({timeout: config["timeout"]["command_execution"]})
+        return msg.delete({timeout: config["timeout"]["command_execution"]*1000})
     }
     if(!bot.commands.get(cmd)) return error.execute(msg, `La commande "${cmd}" n'existe pas !\nFaites \`${prefix}help\` pour obtenir une liste de toutes les commandes.`), msg.delete({timeout: 5000})
     try {
         bot.commands.get(cmd).execute(msg, args, config)
-        msg.delete({timeout: config["timeout"]["command_execution"]})
+        msg.delete({timeout: config["timeout"]["command_execution"]*1000})
     } catch(e){
         throw e;
     }

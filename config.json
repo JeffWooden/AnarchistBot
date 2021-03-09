@@ -1,11 +1,11 @@
 {
     "prefix": "!",
     "vote": {
-      "major": 10000,
-      "minor": 5000
+      "major": 10,
+      "minor": 5
     },
     "timeout": {
-      "errors": 10000,
-      "command_execution": 2000
+      "errors": 10,
+      "command_execution": 2
     }
   }

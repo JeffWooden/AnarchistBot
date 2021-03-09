@@ -24,11 +24,11 @@ Most of the settings are booleans, but some need channel-names (or channel-ids):
 📄 config.json
 └ prefix {string} - Prefix utilisé pour les commandes
 └ vote
-	└ major: {int} - Temps de vote alloué pour un référendum majeur
-	└ minor: {int} - Temps de vote alloué pour un référendum mineur
+	└ major: {int} - Temps (en s) de vote alloué pour un référendum majeur
+	└ minor: {int} - Temps (en s) de vote alloué pour un référendum mineur
 	└ channel: {int|string} - Salon dédié aux votes (si non renseigné, le vote s'effectuera dans le salon de la commande)
 	└ delegate_ony: {boolean} - Si activé, seul les délégués pourront ouvrir des votes
-└ timeout - Temps de disparition des messages du bot
+└ timeout - Temps (en s) de disparition des messages du bot
 	└ errors: {int}
 	└ command_execution: {int}
 ```
