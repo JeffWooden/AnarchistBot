@@ -42,24 +42,33 @@ module.exports = {
                 msg.channel.send(embed)
             }
         } else if(mode == "modify"){
-            if(!config[setting]){unknownParamater()} else {
-                if(!value){error.execute(msg, `Rentrez une valeur pour modifier le paramètre "${setting}"`)}
-                else {
-                    try {value = typeof config[setting] != "string" ? JSON.parse(value) : value} catch(e){}
-                    if(typeof config[setting] != typeof value){error.execute(msg, `Le type de "${value}" est "${typeof value}" ("${typeof config[setting]}" attendu)`)}
-                    else {
-                        if(config[setting] == value){error.execute(msg, `Rien n'a changé, le paramètre "${setting}" est déjà défini sur "${value}"`)}
-                        else {
-                            config[setting] = value;
-                            fs.writeFileSync("./handler/configs/" + msg.guild.id + ".json", JSON.stringify(config, null, 2), "utf-8")
-                            embed.setColor("#2ecc71")
-                            .setDescription(`Læ "${setting}" du serveur a été modifié pour "${value}"`)
-                            .setAuthor(msg.author.username, msg.author.displayAvatarURL());
-                            msg.channel.send(embed)
-                        }
-                    }
-                }
+            function stringContains(e,t){return-1!=e.indexOf(t)}
+            function getKeyPath(object, path){
+                if(!object || path.length === 0) return object;
+                return getKeyPath(object[path.shift()], path)
             }
+            function setKeyPath(object, path, value){
+                if(!object || path.length === 0) return null
+                if(path.length === 1) object[path[0]] = value
+                else return setKeyPath(object[path.shift()], path, value)
+            }
+            oldValue = getKeyPath(config, setting.split("."))
+            if(!oldValue) return unknownParamater(), msg.delete({timeout: 3000});
+            if(typeof oldValue == "object"){
+                embed.setDescription(`Quel paramètre voudriez-vous accéder dans "${setting.split(".").join("/")}" ?`)
+                .setColor("#3498db");
+                for(i in oldValue){
+                    (typeof oldValue[i] == "object" ? readObject(oldValue, i, embed, i) : embed.addField(`${i}`,`${oldValue[i]}`,true))
+                }
+                return msg.channel.send(embed), msg.delete({timeout: 5000})
+            }
+            if(oldValue == value) return error.execute(msg,`Rien n'a changé, "${setting}" toujours égal à \`${oldValue}\``), msg.delete({timeout: 5000})
+            setKeyPath(config, setting.split("."), value)
+            fs.writeFileSync("./handler/configs/" + msg.guild.id + ".json", JSON.stringify(config, null, 2), "utf-8")
+            embed.setColor("#2ecc71")
+            .setDescription(`Læ "${setting}" du serveur a été modifié pour "${value}"`)
+            .setAuthor(msg.author.username, msg.author.displayAvatarURL());
+            msg.channel.send(embed)
         } else {
             error.execute(msg, `Mode "${inconnu}", faites \`${config.prefix}help config\` pour plus d'informations`)
         }
