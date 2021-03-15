@@ -35,7 +35,7 @@ module.exports = {
             regex = /([0-9]+)([d|h|m|s])/gm
             result = regex.exec(duration);
             if(result == null) return reject(`"${duration}" n'est pas une durée correcte (\`/([0-9]+)([d|h|m|s])/\`)`);
-            d = new Date().getTime() + parseInt(result[1])*convert[result[2]].operation
+            var d = new Date().getTime() + parseInt(result[1])*convert[result[2]].operation
             embed = new Discord.MessageEmbed()
             .setTitle(`Nouveau Vote ! - ${type}`)
             .setDescription(`${content}`)
