@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 module.exports = {
     name: "vote",
-    formatDate(d){
+    formatDate(d,format){
         var convert = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
         d = new Date(d);
         AAAA = d.getFullYear(d)
@@ -10,7 +10,12 @@ module.exports = {
         hh = d.getHours(d)
         mm = d.getMinutes(d)
         ss = d.getSeconds(d)
-        return `${dd} ${MM} ${AAAA} à ${hh}h${mm}m${ss}s`
+        switch(format){
+            case "array":
+                return [dd,MM,AAAA,hh,mm,ss]
+            default:
+                return `${dd} ${MM} ${AAAA} à ${hh < 10 ? "0" + hh : hh}h${mm < 10 ? "0" + mm : mm}m${ss < 10 ? "0" + ss : ss}s`
+        }
     },
     post(channel,type,duration,content,author){
         return new Promise((resolve, reject) => {
