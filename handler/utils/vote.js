@@ -17,7 +17,7 @@ module.exports = {
                 return `${dd} ${MM} ${AAAA} à ${hh < 10 ? "0" + hh : hh}h${mm < 10 ? "0" + mm : mm}m${ss < 10 ? "0" + ss : ss}s`
         }
     },
-    post(channel,type,duration,content,author){
+    post(channel,type,duration,args,author){
         return new Promise((resolve, reject) => {
             var convert = {
                 "s": {
@@ -42,9 +42,13 @@ module.exports = {
             if(result == null) return reject(`"${duration}" n'est pas une durée correcte (\`/([0-9]+)([d|h|m|s])/\`)`);
             var d = new Date().getTime() + parseInt(result[1])*convert[result[2]].operation
             embed = new Discord.MessageEmbed()
-            .setTitle(`Nouveau Vote ! - ${type}`)
-            .setDescription(`${content}`)
             .setFooter(`Fin le ${this.formatDate(d)} [Durée ${result[1]} ${convert[result[2]].name}]${author != null ? ` - ${author.username}` : ''}`, author != null ? author.displayAvatarURL() : "");
+            switch(type){
+                default:
+                    embed.setTitle(`Nouveau vote - ${type}`)
+                    embed.setDescription(args.join(" "))
+                    break
+            }
             channel.send(embed)
             return resolve({
                 duration: duration,
